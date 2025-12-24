@@ -1,7 +1,17 @@
 {
-  "buildCommand": "cd laundry-operation && pip install -r requirements.txt",
-  "installCommand": "cd laundry-operation && pip install -r requirements.txt",
-  "framework": null
+  "version": 2,
+  "builds": [
+    {
+      "src": "laundry-operation/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "laundry-operation/main.py"
+    }
+  ]
 }
 
 
