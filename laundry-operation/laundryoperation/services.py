@@ -2,6 +2,7 @@ from uuid import UUID
 from .models import LaundryTask, TaskStatus
 from .repository import TaskRepository
 
+
 class LaundryService:
     def __init__(self, repo: TaskRepository):
         self.repo = repo

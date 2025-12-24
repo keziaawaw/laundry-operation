@@ -2,6 +2,7 @@ from typing import List, Optional
 from uuid import UUID
 from .models import LaundryTask
 
+
 class TaskRepository:
     def __init__(self):
         self.tasks: List[LaundryTask] = []

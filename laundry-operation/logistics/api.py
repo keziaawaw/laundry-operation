@@ -6,6 +6,7 @@ from auth.jwt_handler import get_current_user
 
 router = APIRouter()
 
+
 class CourierSchedule(BaseModel):
     order_id: str
     pickup_address: str
@@ -14,11 +15,13 @@ class CourierSchedule(BaseModel):
     courier_name: Optional[str] = None
     status: str = "pending"
 
+
 class NotificationRequest(BaseModel):
     order_id: str
     customer_phone: str
     message_type: str
     message_content: str
+
 
 @router.post("/schedule-pickup")
 def schedule_pickup(schedule: CourierSchedule, current_user: dict = Depends(get_current_user)):
@@ -27,8 +30,9 @@ def schedule_pickup(schedule: CourierSchedule, current_user: dict = Depends(get_
         "status": "scheduled",
         "pickup_address": schedule.pickup_address,
         "scheduled_time": schedule.scheduled_time,
-        "message": "Pickup berhasil dijadwalkan"
+        "message": "Pickup berhasil dijadwalkan",
     }
+
 
 @router.post("/schedule-delivery")
 def schedule_delivery(schedule: CourierSchedule, current_user: dict = Depends(get_current_user)):
@@ -37,8 +41,9 @@ def schedule_delivery(schedule: CourierSchedule, current_user: dict = Depends(ge
         "status": "scheduled",
         "delivery_address": schedule.delivery_address,
         "scheduled_time": schedule.scheduled_time,
-        "message": "Delivery berhasil dijadwalkan"
+        "message": "Delivery berhasil dijadwalkan",
     }
+
 
 @router.post("/send-notification")
 def send_notification(notif: NotificationRequest, current_user: dict = Depends(get_current_user)):
@@ -47,8 +52,9 @@ def send_notification(notif: NotificationRequest, current_user: dict = Depends(g
         "message_type": notif.message_type,
         "status": "sent",
         "timestamp": datetime.now(),
-        "message": "Notifikasi berhasil dikirim"
+        "message": "Notifikasi berhasil dikirim",
     }
+
 
 @router.get("/courier-location/{order_id}")
 def get_courier_location(order_id: str, current_user: dict = Depends(get_current_user)):
@@ -58,5 +64,5 @@ def get_courier_location(order_id: str, current_user: dict = Depends(get_current
         "latitude": -6.2088,
         "longitude": 106.8456,
         "status": "on_the_way",
-        "eta_minutes": 15
+        "eta_minutes": 15,
     }

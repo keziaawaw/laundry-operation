@@ -9,6 +9,7 @@ ALGORITHM = "HS256"
 
 http_bearer = HTTPBearer(auto_error=False)
 
+
 def create_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -19,6 +20,7 @@ def create_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+
 def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(http_bearer)):
     if credentials is None:
         raise HTTPException(
@@ -26,15 +28,15 @@ def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depen
             detail="Not authenticated. Please login at /auth/login and authorize in Swagger UI",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     token = credentials.credentials
-    
+
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(
-                status_code=401, 
+                status_code=401,
                 detail="Invalid authentication credentials",
                 headers={"WWW-Authenticate": "Bearer"},
             )

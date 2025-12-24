@@ -11,7 +11,7 @@ app = FastAPI(
     description="API untuk mengelola laundry, login, billing, logistics, dan resources.",
     version="1.0.0",
     docs_url="/docs",
-    openapi_url="/openapi.json"
+    openapi_url="/openapi.json",
 )
 
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
@@ -19,6 +19,7 @@ app.include_router(laundry_router, prefix="/laundry", tags=["Laundry Operation"]
 app.include_router(billing_router, prefix="/billing", tags=["Billing & Payment"])
 app.include_router(logistics_router, prefix="/logistics", tags=["Logistics & Notification"])
 app.include_router(customers_router, prefix="/customers", tags=["Customer & Resources"])
+
 
 @app.get("/")
 def root():
@@ -29,7 +30,7 @@ def root():
             "Order & Laundry Operation",
             "Billing & Payment",
             "Logistics & Notification",
-            "Customer & Resources"
+            "Customer & Resources",
         ],
-        "docs": "http://localhost:8000/docs"
+        "docs": "http://localhost:8000/docs",
     }
