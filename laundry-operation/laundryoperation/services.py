@@ -1,4 +1,5 @@
 from uuid import UUID
+
 from .models import LaundryTask, TaskStatus
 from .repository import TaskRepository
 

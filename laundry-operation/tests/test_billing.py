@@ -2,11 +2,13 @@
 Unit tests for billing module.
 """
 
-import pytest
 from datetime import datetime
-from billing.api import router as billing_router
-from fastapi.testclient import TestClient
+
+import pytest
 from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from billing.api import router as billing_router
 
 app = FastAPI()
 app.include_router(billing_router, prefix="/billing")

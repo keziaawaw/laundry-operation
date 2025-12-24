@@ -2,17 +2,18 @@
 Unit tests for authentication module.
 """
 
+from datetime import datetime, timedelta
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
-from datetime import timedelta, datetime
-from jose import jwt, JWTError
-from fastapi import HTTPException
-from auth.jwt_handler import create_token, get_current_user, SECRET_KEY, ALGORITHM
-from auth.api import router as auth_router
-from auth.repository import user_repository
-from auth.password import hash_password, verify_password
+from fastapi import FastAPI, HTTPException
 from fastapi.testclient import TestClient
-from fastapi import FastAPI
+from jose import JWTError, jwt
+
+from auth.api import router as auth_router
+from auth.jwt_handler import ALGORITHM, SECRET_KEY, create_token, get_current_user
+from auth.password import hash_password, verify_password
+from auth.repository import user_repository
 
 app = FastAPI()
 app.include_router(auth_router, prefix="/auth")
@@ -62,9 +63,10 @@ class TestJWTHandler:
 
     def test_get_current_user_missing_sub(self, client):
         """Test get_current_user with token without 'sub' field."""
+        from unittest.mock import MagicMock
+
         from fastapi import APIRouter, Depends
         from fastapi.security import HTTPAuthorizationCredentials
-        from unittest.mock import MagicMock
 
         test_router = APIRouter()
 
@@ -269,7 +271,8 @@ class TestPasswordHashing:
 
     def test_hash_password_fallback_path(self):
         """Test password hashing fallback path when passlib raises ValueError."""
-        from unittest.mock import patch, MagicMock
+        from unittest.mock import MagicMock, patch
+
         from auth.password import hash_password
 
         # Mock passlib to raise ValueError to trigger fallback
@@ -287,7 +290,8 @@ class TestPasswordHashing:
     def test_verify_password_fallback_path(self):
         """Test password verification fallback path when passlib raises exception."""
         from unittest.mock import patch
-        from auth.password import verify_password, hash_password
+
+        from auth.password import hash_password, verify_password
 
         password = "testpassword123"
         hashed = hash_password(password)
@@ -518,6 +522,7 @@ class TestUserRepository:
     def test_get_user_by_email(self, client):
         """Test getting user by email."""
         import time
+
         from auth.repository import user_repository
 
         timestamp = int(time.time())
@@ -547,6 +552,7 @@ class TestUserRepository:
     def test_get_user_by_id(self, client):
         """Test getting user by ID."""
         import time
+
         from auth.repository import user_repository
 
         timestamp = int(time.time())

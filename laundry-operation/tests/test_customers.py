@@ -3,9 +3,10 @@ Unit tests for customers module.
 """
 
 import pytest
-from customers.api import router as customers_router
-from fastapi.testclient import TestClient
 from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from customers.api import router as customers_router
 
 app = FastAPI()
 app.include_router(customers_router, prefix="/customers")

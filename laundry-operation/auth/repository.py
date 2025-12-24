@@ -1,7 +1,8 @@
-from typing import Optional, Dict
-from auth.models import UserInDB
-from datetime import datetime
 import uuid
+from datetime import datetime
+from typing import Dict, Optional
+
+from auth.models import UserInDB
 
 
 class UserRepository:

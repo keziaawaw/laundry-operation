@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, Form, status
+from typing import Optional
+
+from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+
 from auth.jwt_handler import create_token
 from auth.models import UserRegister, UserResponse
-from auth.repository import user_repository
 from auth.password import hash_password, verify_password
-from typing import Optional
+from auth.repository import user_repository
 
 router = APIRouter()
 

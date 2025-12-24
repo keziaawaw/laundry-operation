@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordBearer
+
 from auth.api import router as auth_router
-from laundryoperation.api import router as laundry_router
 from billing.api import router as billing_router
-from logistics.api import router as logistics_router
 from customers.api import router as customers_router
+from laundryoperation.api import router as laundry_router
+from logistics.api import router as logistics_router
 
 app = FastAPI(
     title="Laundry Management API",

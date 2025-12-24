@@ -2,15 +2,17 @@
 Unit tests for laundry operation module.
 """
 
-import pytest
-from uuid import UUID, uuid4
 from datetime import datetime
+from uuid import UUID, uuid4
+
+import pytest
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from laundryoperation.api import router as laundry_router
 from laundryoperation.models import LaundryTask, TaskStatus
 from laundryoperation.repository import TaskRepository
 from laundryoperation.services import LaundryService
-from laundryoperation.api import router as laundry_router
-from fastapi.testclient import TestClient
-from fastapi import FastAPI
 
 app = FastAPI()
 app.include_router(laundry_router, prefix="/laundry")

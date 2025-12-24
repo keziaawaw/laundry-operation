@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+
 from auth.jwt_handler import get_current_user
 
 router = APIRouter()

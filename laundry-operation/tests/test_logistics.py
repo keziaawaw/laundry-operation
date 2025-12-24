@@ -2,11 +2,13 @@
 Unit tests for logistics module.
 """
 
-import pytest
 from datetime import datetime, timedelta
-from logistics.api import router as logistics_router
-from fastapi.testclient import TestClient
+
+import pytest
 from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+from logistics.api import router as logistics_router
 
 app = FastAPI()
 app.include_router(logistics_router, prefix="/logistics")

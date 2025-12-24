@@ -1,10 +1,12 @@
+import time
+from datetime import timedelta
+
 import pytest
 from fastapi.testclient import TestClient
-from main import app
+
 from auth.jwt_handler import create_token
 from auth.repository import user_repository
-from datetime import timedelta
-import time
+from main import app
 
 
 @pytest.fixture(scope="function", autouse=True)
