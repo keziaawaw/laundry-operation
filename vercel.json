@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd laundry-operation && pip install -r requirements.txt",
+  "installCommand": "cd laundry-operation && pip install -r requirements.txt",
+  "framework": null
+}
+
+
