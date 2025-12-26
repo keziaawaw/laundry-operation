@@ -1,19 +1,12 @@
 import sys
 import os
-sys.path.insert(0, os.path.dirname(__file__))
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
 
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordBearer
-
-try:
-    from auth.api import router as auth_router
-    from billing.api import router as billing_router
-    from customers.api import router as customers_router
-    from laundryoperation.api import router as laundry_router
-    from logistics.api import router as logistics_router
-except ImportError as e:
-    print(f"Import error: {e}")
-    raise
 
 app = FastAPI(
     title="Laundry Management API",
@@ -23,11 +16,35 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
-app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
-app.include_router(laundry_router, prefix="/laundry", tags=["Laundry Operation"])
-app.include_router(billing_router, prefix="/billing", tags=["Billing & Payment"])
-app.include_router(logistics_router, prefix="/logistics", tags=["Logistics & Notification"])
-app.include_router(customers_router, prefix="/customers", tags=["Customer & Resources"])
+try:
+    from auth.api import router as auth_router
+    app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
+except ImportError as e:
+    print(f"Warning: Could not import auth router: {e}")
+
+try:
+    from billing.api import router as billing_router
+    app.include_router(billing_router, prefix="/billing", tags=["Billing & Payment"])
+except ImportError as e:
+    print(f"Warning: Could not import billing router: {e}")
+
+try:
+    from customers.api import router as customers_router
+    app.include_router(customers_router, prefix="/customers", tags=["Customer & Resources"])
+except ImportError as e:
+    print(f"Warning: Could not import customers router: {e}")
+
+try:
+    from laundryoperation.api import router as laundry_router
+    app.include_router(laundry_router, prefix="/laundry", tags=["Laundry Operation"])
+except ImportError as e:
+    print(f"Warning: Could not import laundry router: {e}")
+
+try:
+    from logistics.api import router as logistics_router
+    app.include_router(logistics_router, prefix="/logistics", tags=["Logistics & Notification"])
+except ImportError as e:
+    print(f"Warning: Could not import logistics router: {e}")
 
 
 @app.get("/")
