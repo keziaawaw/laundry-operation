@@ -1,11 +1,19 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordBearer
 
-from auth.api import router as auth_router
-from billing.api import router as billing_router
-from customers.api import router as customers_router
-from laundryoperation.api import router as laundry_router
-from logistics.api import router as logistics_router
+try:
+    from auth.api import router as auth_router
+    from billing.api import router as billing_router
+    from customers.api import router as customers_router
+    from laundryoperation.api import router as laundry_router
+    from logistics.api import router as logistics_router
+except ImportError as e:
+    print(f"Import error: {e}")
+    raise
 
 app = FastAPI(
     title="Laundry Management API",
