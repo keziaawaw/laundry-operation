@@ -197,7 +197,8 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod --cwd laundry-operation'
+          vercel-args: '--prod'
+        continue-on-error: true
       
       - name: Deploy to Vercel Production
         uses: amondnet/vercel-action@v25
@@ -205,5 +206,6 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod --yes --cwd laundry-operation'
+          vercel-args: '--prod --yes'
+        continue-on-error: true
 
